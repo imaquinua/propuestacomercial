@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Formulario de Plan</title>
+</head>
+<body>
+<form action="sendmail.php" method="POST" onsubmit="sendForm(event)">
+  <label>Nombre: <input type="text" name="name" required></label><br>
+  <label>Correo electrónico: <input type="email" name="email" required></label><br>
+  <label>Plan de preferencia:
+    <select name="plan" required>
+      <option value="basico">Básico</option>
+      <option value="estandar">Estándar</option>
+      <option value="premium">Premium</option>
+    </select>
+  </label><br>
+  <input type="submit" value="Enviar">
+</form>
+
+<script>
+function sendForm(event) {
+  event.preventDefault();
+  var form = event.target;
+  var formData = new FormData(form);
+  fetch('sendmail.php', { method: 'POST', body: formData })
+    .then(function() {
+      alert('gracias por confiar en nosotros pronto te llegar\u00e1 un correo de confirmaci\u00f3n y la cita de nuestra reuni\u00f3n de kick off.');
+      form.reset();
+    })
+    .catch(function() {
+      alert('Hubo un error al enviar el formulario');
+    });
+}
+</script>
+</body>
+</html>
