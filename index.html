@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta Estratégica: Crecimiento B2B2C para Andina de Repuestos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- 
+        PLAN DE INFOGRAFÍA Y ANÁLISIS TÉCNICO
+        Narrativa: Contar la historia de la transformación estratégica de un modelo tradicional a un innovador ecosistema B2B2C.
+        Estructura: 1. El Reto. 2. La Solución (El Motor B2B2C). 3. Propuesta de Valor Central (Ahora con Asistente de IA). 4. Paquetes de Servicio. 5. Roadmap de Implementación y Proyección ROAS. 6. Modelo de Éxito y Aceptación de Oferta.
+        Paleta de Colores: "Brilliant Blues" (#004AAD, #007BFF, #58A6FF, #99C7FF, #E0EFFF).
+        Selección de Visualizaciones (Confirmación NO SVG / NO MERMAID):
+          - El Motor B2B2C: Diagrama de flujo HTML/CSS.
+          - Propuesta de Valor Central: Diagrama interactivo con HTML/CSS/JS, incluyendo la nueva herramienta Gemini.
+          - Mix de Contenidos por Paquete: Donut Charts de Chart.js.
+          - Proyección de ROAS: Line Chart de Chart.js.
+          - Roadmap Semanal: Timeline vertical con HTML/CSS.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .strategic-tab {
+            cursor: pointer;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .strategic-tab.active {
+            background-color: #007BFF;
+            color: white;
+            transform: scale(1.05);
+        }
+        /* Modal Styles */
+        #offerModal.hidden {
+            display: none;
+        }
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #FFF;
+            border-bottom-color: #007BFF;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#E0EFFF]">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="flex flex-col md:flex-row items-center justify-between mb-12 py-4">
+            <div class="flex-shrink-0 mb-4 md:mb-0">
+                <img src="https://placehold.co/200x60/E0EFFF/004AAD?text=Andina+Logo" alt="Logo de Andina de Repuestos" class="w-48 md:w-56">
+            </div>
+            <div class="text-center md:text-right">
+                <h1 class="text-3xl md:text-4xl font-black text-[#004AAD] mb-2">Propuesta Estratégica de Crecimiento</h1>
+                <p class="text-lg md:text-xl font-semibold text-[#007BFF]">De proveedor a Socio Estratégico.</p>
+            </div>
+        </header>
+
+        <main>
+            <section id="challenge" class="mb-16">
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 text-center">
+                    <h2 class="text-3xl font-bold text-[#004AAD] mb-4">El Reto del Mercado Actual</h2>
+                    <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                        El mercado de repuestos enfrenta una barrera crítica: la **desconfianza del consumidor** y la necesidad de los **pequeños comerciantes** de competir. Nuestra solución es construir un ecosistema de confianza que beneficie a toda la cadena de valor.
+                    </p>
+                </div>
+            </section>
+
+            <section id="solution" class="mb-16">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-[#004AAD]">La Solución: El Motor de Crecimiento B2B2C</h2>
+                    <p class="text-lg text-gray-700 max-w-3xl mx-auto">Proponemos un círculo virtuoso donde empoderamos a la red de socios (B2B) para que se conviertan en la opción preferida del consumidor final (B2C).</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center text-center">
+                        <div class="bg-[#E0EFFF] p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-[#004AAD]">1. Empoderamos al Socio (B2B)</h3>
+                            <p class="text-gray-700 mt-2">Brindamos herramientas, capacitación y un catálogo de calidad para convertirlos en expertos de confianza.</p>
+                        </div>
+                        <div class="flex justify-center items-center">
+                            <span class="text-5xl font-bold text-[#007BFF] hidden md:block">➔</span>
+                            <span class="text-5xl font-bold text-[#007BFF] md:hidden">↓</span>
+                        </div>
+                        <div class="bg-[#E0EFFF] p-6 rounded-xl">
+                             <h3 class="text-xl font-bold text-[#004AAD]">2. Generamos Demanda (B2C)</h3>
+                            <p class="text-gray-700 mt-2">Con contenido educativo, llevamos a los consumidores finales a los locales de nuestros socios.</p>
+                        </div>
+                    </div>
+                     <div class="flex justify-center my-4">
+                        <span class="text-5xl font-bold text-[#007BFF] transform rotate-90 md:rotate-180">↩</span>
+                    </div>
+                     <div class="bg-[#99C7FF] p-6 rounded-xl text-center max-w-md mx-auto">
+                         <h3 class="text-xl font-bold text-[#004AAD]">3. Crecimiento Compartido</h3>
+                        <p class="text-gray-800 mt-2">Más ventas para los socios significan mayor rotación para Andina y un cliente final satisfecho. Todos ganan.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="value-prop" class="mb-16">
+                 <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-[#004AAD]">Nuestro Core Estratégico Interactivo</h2>
+                    <p class="text-lg text-gray-700 max-w-3xl mx-auto">Explore los pilares de nuestro servicio de alto valor, incluido en todos los paquetes.</p>
+                </div>
+                 <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
+                        <div class="strategic-tab active" data-target="tab-estrategia">Estrategia y Performance</div>
+                        <div class="strategic-tab" data-target="tab-leads">Foco en Leads de Calidad</div>
+                        <div class="strategic-tab" data-target="tab-optimizacion">Optimización y Testing A/B</div>
+                        <div class="strategic-tab" data-target="tab-medicion">Implementación y Medición</div>
+                        <div class="strategic-tab" data-target="tab-asesoria">Asesoría Estratégica</div>
+                        <div class="strategic-tab" data-target="tab-marketing">✨ Asistente de Marketing</div>
+                    </div>
+                    <div id="strategic-content" class="bg-[#E0EFFF] p-6 rounded-xl min-h-[240px] flex items-center justify-center">
+                        <div class="tab-content w-full" id="tab-estrategia">
+                            <h4 class="text-xl font-bold text-[#004AAD] mb-2 text-center">Planificación y Gestión Avanzada</h4>
+                            <p class="text-gray-800 text-center">Diseñamos y ejecutamos un plan a medida para el funnel B2B2C, gestionando campañas en todos los canales para maximizar el impacto y alcanzar los objetivos de negocio.</p>
+                        </div>
+                        <div class="tab-content hidden w-full" id="tab-leads">
+                             <h4 class="text-xl font-bold text-[#004AAD] mb-2 text-center">Generamos Oportunidades Reales</h4>
+                             <div class="flex flex-col md:flex-row gap-4">
+                                <div class="flex-1 bg-white p-3 rounded-lg shadow text-center">
+                                    <p class="font-bold text-lg text-blue-800">🤔 MQL (Marketing Qualified Lead)</p>
+                                    <p class="text-sm text-gray-700">Un socio potencial que mostró interés (ej. descargó un catálogo) pero aún no está listo para comprar. Lo nutrimos con valor.</p>
+                                </div>
+                                <div class="flex-1 bg-white p-3 rounded-lg shadow text-center">
+                                    <p class="font-bold text-lg text-green-800">🤝 SQL (Sales Qualified Lead)</p>
+                                    <p class="text-sm text-gray-700">Un socio calificado, listo para una conversación comercial. ¡Es una oportunidad de negocio tangible!</p>
+                                </div>
+                             </div>
+                        </div>
+                        <div class="tab-content hidden w-full" id="tab-optimizacion">
+                            <h4 class="text-xl font-bold text-[#004AAD] mb-2 text-center">Mejora Continua Basada en Datos</h4>
+                            <p class="text-gray-800 text-center">Realizamos pruebas A/B constantes en audiencias, mensajes y creatividades para identificar qué funciona mejor y optimizar cada sol invertido en pauta.</p>
+                        </div>
+                        <div class="tab-content hidden w-full" id="tab-medicion">
+                             <h4 class="text-xl font-bold text-[#004AAD] mb-2 text-center">Transparencia y Resultados Medibles</h4>
+                            <p class="text-gray-800 text-center">Configuramos un sistema de tracking avanzado y dashboards en tiempo real para que siempre sepa cuál es el rendimiento de tu inversión y el estado del funnel.</p>
+                        </div>
+                         <div class="tab-content hidden w-full" id="tab-asesoria">
+                            <h4 class="text-xl font-bold text-[#004AAD] mb-2 text-center">Somos sus Socios, no un Proveedor</h4>
+                            <p class="text-gray-800 text-center">Mantenemos reuniones mensuales de análisis y optimización para revisar resultados, proponer mejoras y asegurar que la estrategia evolucione junto al mercado.</p>
+                        </div>
+                        <div class="tab-content hidden w-full" id="tab-marketing">
+                             <h4 class="text-xl font-bold text-[#004AAD] mb-2 text-center">✨ Genere Contenido para sus Redes Sociales</h4>
+                             <p class="text-center text-sm text-gray-700 mb-4">Ingrese un tema y nuestra IA creará una publicación para su taller.</p>
+                             <div class="flex flex-col sm:flex-row gap-2 max-w-xl mx-auto">
+                                 <input type="text" id="marketing-topic" placeholder="Ej: Promoción de cambio de aceite" class="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#007BFF]">
+                                 <button id="generate-post-btn" class="bg-[#007BFF] hover:bg-[#0056b3] text-white font-bold py-3 px-6 rounded-lg transition-transform transform hover:scale-105">Generar Texto</button>
+                             </div>
+                             <div id="post-result-container" class="mt-4 max-w-xl mx-auto p-4 bg-white rounded-lg shadow min-h-[100px] flex items-center justify-center">
+                                <div id="loader" class="hidden loader"></div>
+                                <p id="post-result-text" class="text-gray-600 text-sm whitespace-pre-wrap">Aquí aparecerá la publicación generada...</p>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-4 mt-6">
+                         <a href="journey.html" class="bg-white hover:bg-gray-100 text-[#004AAD] font-bold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105 flex items-center gap-2">
+                           🗺️ Journey Map
+                        </a>
+                        <a href="vision.html" class="bg-white hover:bg-gray-100 text-[#004AAD] font-bold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105 flex items-center gap-2">
+                           📊 Visión de Mercado
+                        </a>
+                    </div>
+                 </div>
+            </section>
+
+            <section id="packages" class="mb-16">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-[#004AAD]">Planes de Servicio y Cotización</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col">
+                        <h3 class="text-2xl font-bold text-center text-[#004AAD]">ESENCIAL</h3>
+                        <div class="chart-container h-64 mb-4"><canvas id="essentialChart"></canvas></div>
+                        <p class="text-center font-semibold text-lg text-gray-800">Hasta 8 Piezas de Contenido</p>
+                        <div class="flex-grow"></div>
+                        <div class="text-center mt-6"><p class="text-4xl font-black text-[#007BFF]">S/ 4,800</p><p class="text-gray-600">+ IGV / Mensual</p></div>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col border-4 border-[#007BFF]">
+                        <p class="text-center bg-[#007BFF] text-white font-bold py-1 px-4 rounded-full -mt-10 mx-auto">RECOMENDADO</p>
+                        <h3 class="text-2xl font-bold text-center text-[#004AAD] mt-4">CRECIMIENTO</h3>
+                        <div class="chart-container h-64 mb-4"><canvas id="growthChart"></canvas></div>
+                        <p class="text-center font-semibold text-lg text-gray-800">Hasta 16 Piezas de Contenido</p>
+                        <div class="flex-grow"></div>
+                        <div class="text-center mt-6"><p class="text-4xl font-black text-[#007BFF]">S/ 5,600</p><p class="text-gray-600">+ IGV / Mensual</p></div>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col">
+                        <h3 class="text-2xl font-bold text-center text-[#004AAD]">LIDERAZGO</h3>
+                        <div class="chart-container h-64 mb-4"><canvas id="leadershipChart"></canvas></div>
+                        <p class="text-center font-semibold text-lg text-gray-800">Hasta 24 Piezas de Contenido</p>
+                        <div class="flex-grow"></div>
+                        <div class="text-center mt-6"><p class="text-4xl font-black text-[#007BFF]">S/ 7,500</p><p class="text-gray-600">+ IGV / Mensual</p></div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="roadmap" class="mb-16">
+                 <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-[#004AAD]">Roadmap de Activación (Primeros 3 Meses)</h2>
+                </div>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white rounded-2xl shadow-lg p-6">
+                        <div class="relative pl-8">
+                            <div class="absolute left-2 top-0 bottom-0 w-1 bg-[#99C7FF] rounded"></div>
+                            <div class="mb-6 relative">
+                                <div class="absolute -left-11 top-1/2 -translate-y-1/2 w-6 h-6 bg-[#007BFF] rounded-full border-4 border-white"></div>
+                                <h4 class="font-bold text-[#004AAD]">Semanas 1-2: Setup Estratégico</h4>
+                                <p class="text-gray-600">Planning de branding y performance. Kick-off. Setup de cuentas y analítica.</p>
+                            </div>
+                             <div class="mb-6 relative">
+                                <div class="absolute -left-11 top-1/2 -translate-y-1/2 w-6 h-6 bg-[#007BFF] rounded-full border-4 border-white"></div>
+                                <h4 class="font-bold text-[#004AAD]">Semanas 3-6: Lanzamiento B2B</h4>
+                                <p class="text-gray-600">Lanzamiento de campañas de captación de socios (MQLs). Onboarding de primeros socios.</p>
+                            </div>
+                            <div class="mb-6 relative">
+                                <div class="absolute -left-11 top-1/2 -translate-y-1/2 w-6 h-6 bg-[#007BFF] rounded-full border-4 border-white"></div>
+                                <h4 class="font-bold text-[#004AAD]">Semanas 7-10: Activación B2C</h4>
+                                <p class="text-gray-600">Lanzamiento de campañas B2C geolocalizadas. Generación de demanda para la red.</p>
+                            </div>
+                            <div class="relative">
+                                <div class="absolute -left-11 top-1/2 -translate-y-1/2 w-6 h-6 bg-[#007BFF] rounded-full border-4 border-white"></div>
+                                <h4 class="font-bold text-[#004AAD]">Semanas 11-12: Primera Optimización</h4>
+                                <p class="text-gray-600">Análisis de primer ciclo, reporte de impacto B2B2C y ajustes estratégicos.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="bg-white rounded-2xl shadow-lg p-6">
+                             <h3 class="text-xl font-bold text-center text-[#004AAD] mb-4">Proyección de ROAS a 6 Meses</h3>
+                             <div class="chart-container"><canvas id="roasProjectionChart"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="success-model" class="mb-16">
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                    <h2 class="text-3xl font-bold text-[#004AAD] text-center mb-6">Un Modelo de Colaboración Basado en el Éxito</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div>
+                             <p class="text-lg text-gray-700 mb-4">Proponemos un **contrato de 6 meses** para la correcta maduración de la estrategia. Para alinear nuestros objetivos, ofrecemos un **bono de éxito trimestral opcional** a partir del tercer mes.</p>
+                             <p class="text-lg text-gray-700">Este modelo refuerza nuestra relación como socios estratégicos.</p>
+                        </div>
+                        <div class="bg-[#E0EFFF] p-6 rounded-xl">
+                            <h4 class="text-xl font-bold text-center text-[#004AAD] mb-4">KPIs de Éxito Potenciales</h4>
+                            <ul class="list-none space-y-2">
+                                <li class="flex items-center"><span class="text-xl text-[#007BFF] mr-2">✓</span> Nuevos socios (SQL) en la red.</li>
+                                <li class="flex items-center"><span class="text-xl text-[#007BFF] mr-2">✓</span> Volumen de ventas del canal B2B digital.</li>
+                                <li class="flex items-center"><span class="text-xl text-[#007BFF] mr-2">✓</span> Crecimiento del ROAS general.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="final-cta" class="text-center">
+                <button id="acceptOfferBtn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-10 rounded-lg shadow-lg text-xl transition-transform transform hover:scale-105">Aceptar Oferta</button>
+            </section>
+        </main>
+    </div>
+
+    <!-- Offer Modal -->
+    <div id="offerModal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50">
+        <div class="bg-white max-w-lg w-full rounded-2xl shadow-2xl p-8 relative transform transition-all scale-95 opacity-0" id="modal-content">
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+            <h3 class="text-2xl font-bold text-[#004AAD] mb-6 text-center">Complete sus datos para continuar</h3>
+            <form>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <input type="text" placeholder="Nombre" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#007BFF]">
+                    <input type="text" placeholder="Apellido" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#007BFF]">
+                </div>
+                <div class="mb-4">
+                    <input type="email" placeholder="Correo Electrónico" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#007BFF]">
+                </div>
+                <div class="mb-6">
+                    <select class="w-full p-3 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#007BFF]">
+                        <option disabled selected>Seleccione el plan de su preferencia</option>
+                        <option value="esencial">Plan Esencial - S/ 4,800</option>
+                        <option value="crecimiento">Plan Crecimiento - S/ 5,600</option>
+                        <option value="liderazgo">Plan Liderazgo - S/ 7,500</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-[#007BFF] hover:bg-[#0056b3] text-white font-bold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105">Enviar Solicitud</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const brilliantBlues = { dark: '#004AAD', main: '#007BFF', light: '#58A6FF' };
+            
+            // --- Interactive Strategic Core ---
+            const tabs = document.querySelectorAll('.strategic-tab');
+            const contents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(item => {
+                      item.classList.remove('active');
+                      item.style.backgroundColor = '#E0EFFF';
+                      item.style.color = '#004AAD';
+                      item.style.transform = 'scale(1)';
+                    });
+                    tab.classList.add('active');
+                    
+                    const targetId = tab.dataset.target;
+                    contents.forEach(content => {
+                        content.classList.toggle('hidden', content.id !== targetId);
+                    });
+                });
+            });
+
+            // --- Gemini API Call ---
+            const generateBtn = document.getElementById('generate-post-btn');
+            const topicInput = document.getElementById('marketing-topic');
+            const resultText = document.getElementById('post-result-text');
+            const loader = document.getElementById('loader');
+
+            const generateMarketingPost = async () => {
+                const topic = topicInput.value.trim();
+                if (!topic) {
+                    resultText.textContent = "Por favor, ingrese un tema para la publicación.";
+                    return;
+                }
+
+                resultText.classList.add('hidden');
+                loader.classList.remove('hidden');
+
+                const prompt = `Actúa como un experto en marketing para talleres mecánicos en Perú. Genera un texto corto y amigable para una publicación de Facebook o Instagram para un taller. El tema es: "${topic}". Usa un tono cercano, incluye 2 o 3 emojis relevantes y un claro llamado a la acción para que los clientes visiten el taller o pidan una cotización.`;
+
+                try {
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                    
+                    const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                    const payload = { contents: chatHistory };
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Error de la API: ${response.statusText}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        resultText.textContent = text;
+                    } else {
+                         throw new Error("Respuesta inesperada de la API.");
+                    }
+                } catch (error) {
+                    console.error("Error al llamar a la API de Gemini:", error);
+                    resultText.textContent = "Hubo un error al generar el texto. Por favor, intente de nuevo.";
+                } finally {
+                    loader.classList.add('hidden');
+                    resultText.classList.remove('hidden');
+                }
+            };
+
+            generateBtn.addEventListener('click', generateMarketingPost);
+
+
+            // --- Charting ---
+            const chartTooltipConfig = {
+                plugins: {
+                    tooltip: { callbacks: { title: (tooltipItems) => { const item = tooltipItems[0]; let label = item.chart.data.labels[item.dataIndex]; return Array.isArray(label) ? label.join(' ') : label; }}},
+                    legend: { labels: { color: brilliantBlues.dark, font: { weight: '600' } } }
+                }
+            };
+            
+            const donutOptions = { responsive: true, maintainAspectRatio: false, cutout: '70%', ...chartTooltipConfig };
+            const lineOptions = { responsive: true, maintainAspectRatio: false, ...chartTooltipConfig,
+                scales: {
+                    y: { beginAtZero: false, grid: { color: 'rgba(0, 74, 173, 0.1)' }, ticks: { color: brilliantBlues.dark, font: { weight: '600' }, callback: (value) => value + 'x' } },
+                    x: { grid: { display: false }, ticks: { color: brilliantBlues.dark, font: { weight: '600' } } }
+                }
+            };
+
+            new Chart(document.getElementById('essentialChart'), { type: 'doughnut', data: { labels: ['Para Socios (B2B)', 'Para Consumidores (B2C)'], datasets: [{ label: 'Distribución', data: [3, 5], backgroundColor: [brilliantBlues.main, brilliantBlues.light], borderColor: '#FFFFFF', borderWidth: 4 }] }, options: donutOptions });
+            new Chart(document.getElementById('growthChart'), { type: 'doughnut', data: { labels: ['Para Socios (B2B)', 'Para Consumidores (B2C)'], datasets: [{ label: 'Distribución', data: [6, 10], backgroundColor: [brilliantBlues.main, brilliantBlues.light], borderColor: '#FFFFFF', borderWidth: 4 }] }, options: donutOptions });
+            new Chart(document.getElementById('leadershipChart'), { type: 'doughnut', data: { labels: ['Para Socios (B2B)', 'Para Consumidores (B2C)'], datasets: [{ label: 'Distribución', data: [8, 16], backgroundColor: [brilliantBlues.main, brilliantBlues.light], borderColor: '#FFFFFF', borderWidth: 4 }] }, options: donutOptions });
+            new Chart(document.getElementById('roasProjectionChart'), { type: 'line', data: { labels: ['Mes 1', 'Mes 2', 'Mes 3', 'Mes 4', 'Mes 5', 'Mes 6'], datasets: [{ label: 'Retorno de Inversión (ROAS)', data: [2, 2.5, 3, 3.8, 4.5, 5], fill: true, backgroundColor: 'rgba(88, 166, 255, 0.2)', borderColor: brilliantBlues.main, tension: 0.4, pointBackgroundColor: brilliantBlues.main, }] }, options: lineOptions });
+
+            // --- Modal Logic ---
+            const acceptOfferBtn = document.getElementById('acceptOfferBtn');
+            const offerModal = document.getElementById('offerModal');
+            const modalContent = document.getElementById('modal-content');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+
+            const openModal = () => {
+                offerModal.classList.remove('hidden');
+                setTimeout(() => {
+                    modalContent.style.transform = 'scale(1)';
+                    modalContent.style.opacity = '1';
+                }, 50);
+            };
+
+            const closeModal = () => {
+                modalContent.style.transform = 'scale(0.95)';
+                modalContent.style.opacity = '0';
+                setTimeout(() => {
+                    offerModal.classList.add('hidden');
+                }, 300);
+            };
+
+            acceptOfferBtn.addEventListener('click', openModal);
+            closeModalBtn.addEventListener('click', closeModal);
+            offerModal.addEventListener('click', (e) => {
+                if (e.target === offerModal) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

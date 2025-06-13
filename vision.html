@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Análisis del Mercado de Autopartes en Perú</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- 
+        PLAN DE INFOGRAFÍA Y ANÁLISIS TÉCNICO
+        Narrativa: Presentar un reporte de investigación de mercado de forma visual y digerible.
+        Estructura: 1. Radiografía del Mercado. 2. Perfil de Clientes. 3. Panorama Competitivo. 4. Análisis FODA (Ahora con IA). 5. Oportunidades Estratégicas.
+        Paleta de Colores Seleccionada: "Energetic & Playful" (#FF6B6B, #FFD166, #06D6A0, #118AB2, #073B4C).
+        Selección de Visualizaciones (Confirmación NO SVG / NO MERMAID):
+          - Radiografía del Mercado: Tarjetas de KPI (con hover) y Donut Chart de Chart.js.
+          - Perfil de Clientes: Diagrama HTML/CSS.
+          - Panorama Competitivo: Bubble Chart de Chart.js.
+          - Análisis FODA: Diagrama HTML/CSS con funcionalidad Gemini API.
+          - Oportunidades Estratégicas: Lista HTML/CSS.
+        Confirmación explícita: NI Mermaid JS NI SVG fueron utilizados.
+    -->
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin: auto; height: 320px; max-height: 400px; }
+        .kpi-card { background-color: #073B4C; color: white; padding: 1.5rem; border-radius: 1rem; text-align: center; position: relative; cursor: help; }
+        .kpi-value { font-size: 2.5rem; line-height: 1; font-weight: 900; color: #FFD166; }
+        .kpi-label { font-size: 1rem; font-weight: 500; color: #f8fafc; opacity: 0.9; margin-top: 0.5rem; }
+        .section-title { color: #073B4C; }
+        .section-subtitle { color: #118AB2; }
+        .loader {
+            width: 24px;
+            height: 24px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #118AB2;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .tooltip {
+            @apply invisible absolute bottom-full mb-2 w-max max-w-xs p-2 text-xs text-white bg-gray-900 rounded-md shadow-lg opacity-0 transition-opacity duration-300 group-hover:visible group-hover:opacity-100;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="relative text-center mb-16 py-4">
+             <div class="absolute top-4 right-4">
+                 <a href="index.html" class="bg-white hover:bg-gray-100 text-[#004AAD] font-bold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 flex items-center gap-2">
+                    📄 <span class="hidden sm:inline">Propuesta Comercial</span>
+                </a>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-black section-title mb-2">Análisis del Mercado de Autopartes</h1>
+            <p class="text-xl md:text-2xl section-subtitle font-medium">Radiografía del Ecosistema Peruano y Oportunidades para Andina de Repuestos</p>
+        </header>
+
+        <section id="overview" class="mb-20">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold section-title mb-3">1. Radiografía del Mercado Peruano</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-600">Los datos macroeconómicos revelan un mercado de gran tamaño, en crecimiento constante y con una característica clave: un parque automotor antiguo que garantiza una alta demanda de mantenimiento.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="kpi-card shadow-lg group">
+                    <div class="kpi-value">~$500M</div>
+                    <div class="kpi-label">Tamaño del Mercado (2023)</div>
+                    <span class="tooltip">Valor total de ventas de repuestos y accesorios en el país durante 2023.</span>
+                </div>
+                <div class="kpi-card shadow-lg group">
+                    <div class="kpi-value">+5-8%</div>
+                    <div class="kpi-label">Proyección CAGR</div>
+                    <span class="tooltip">Tasa de Crecimiento Anual Compuesta. Es el crecimiento promedio que se espera cada año.</span>
+                </div>
+                <div class="kpi-card shadow-lg group">
+                    <div class="kpi-value">&gt;14 Años</div>
+                    <div class="kpi-label">Edad Promedio (Lima)</div>
+                    <span class="tooltip">La antigüedad promedio de los vehículos en Lima. Una cifra alta implica mayor necesidad de mantenimiento.</span>
+                </div>
+                <div class="kpi-card shadow-lg group">
+                    <div class="kpi-value">8.6M</div>
+                    <div class="kpi-label">Parque Vehicular</div>
+                    <span class="tooltip">Cantidad total de vehículos registrados y en circulación en todo el país.</span>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                <h3 class="text-2xl font-bold section-title text-center mb-1">Marcas Dominantes en el Parque Vehicular</h3>
+                <p class="text-center text-gray-600 mb-6">El mercado está liderado por marcas asiáticas, lo que define la demanda principal de repuestos. Toyota mantiene una posición dominante, seguida por Hyundai y Kia.</p>
+                <div class="chart-container"><canvas id="brandShareChart"></canvas></div>
+            </div>
+        </section>
+        
+        <section id="clients" class="mb-20">
+             <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold section-title mb-3">2. El Ecosistema de Clientes: B2B y B2C</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-600">Nuestra estrategia B2B2C se valida al entender las necesidades y dolores de nuestros dos clientes clave: el comerciante estratégico y el automovilista moderno.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                    <h3 class="text-2xl font-bold section-title mb-4">El Comerciante Estratégico (B2B)</h3>
+                    <p class="text-gray-600 mb-4">Es un experto técnico que valora la eficiencia. Su principal dolor es la logística y la gestión de un capital limitado.</p>
+                    <h4 class="font-bold text-lg text-gray-800 mb-2">¿Qué valora en un proveedor?</h4>
+                    <ul class="space-y-3">
+                        <li class="p-4 bg-gray-50 rounded-lg shadow-sm">🥇 <span class="font-semibold">Precio y Rapidez:</span> La combinación ganadora para no perder ventas y mantener su taller en movimiento.</li>
+                        <li class="p-4 bg-gray-50 rounded-lg shadow-sm">🥈 <span class="font-semibold">Confianza y Garantía:</span> Necesita repuestos de calidad para proteger su reputación.</li>
+                        <li class="p-4 bg-gray-50 rounded-lg shadow-sm">🥉 <span class="font-semibold">Relación y Crédito:</span> Un socio que lo asesore y le dé facilidades de pago es invaluable.</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                    <h3 class="text-2xl font-bold section-title mb-4">El Automovilista Moderno (B2C)</h3>
+                    <p class="text-gray-600 mb-4">Busca soluciones rápidas pero su principal motor de decisión es el miedo a ser estafado.</p>
+                    <h4 class="font-bold text-lg text-gray-800 mb-2">¿Qué le genera confianza?</h4>
+                     <ul class="space-y-3">
+                        <li class="p-4 bg-gray-50 rounded-lg shadow-sm">🤝 <span class="font-semibold">Recomendación Personal:</span> El factor más poderoso. Confía en el boca a boca.</li>
+                        <li class="p-4 bg-gray-50 rounded-lg shadow-sm">🔍 <span class="font-semibold">Transparencia del Mecánico:</span> Valora que le expliquen el problema y le muestren las piezas.</li>
+                        <li class="p-4 bg-gray-50 rounded-lg shadow-sm">✅ <span class="font-semibold">Marcas y Garantía:</span> Usar marcas conocidas y recibir una garantía por escrito reduce su ansiedad.</li>
+                    </ul>
+                </div>
+            </div>
+             <p class="text-center mt-8 text-lg text-[#073B4C] font-semibold bg-[#FFD166] p-4 rounded-lg">Insight Clave: El mecánico tiene casi el 100% de la influencia en la decisión de compra de repuestos técnicos. Empoderarlo es clave.</p>
+        </section>
+
+        <section id="competitive-landscape" class="mb-20">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold section-title mb-3">3. Panorama Competitivo</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-600">El mercado es un campo de batalla diverso. Visualizamos a los competidores según su nivel de amenaza para el comerciante estratégico y su agilidad digital.</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                <h3 class="text-2xl font-bold section-title text-center mb-6">Matriz de Posicionamiento Competitivo</h3>
+                <div class="chart-container h-96"><canvas id="competitiveBubbleChart"></canvas></div>
+            </div>
+        </section>
+        
+        <section id="swot" class="mb-20">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold section-title mb-3">4. Análisis FODA Estratégico</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-600">Un resumen de los factores internos y externos que definen el campo de juego para Andina de Repuestos. Ahora con recomendaciones estratégicas generadas por IA.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-2xl shadow-lg p-6 border-l-8 border-[#06D6A0]">
+                    <h3 class="text-2xl font-bold flex items-center mb-3"><span class="text-3xl mr-3">👍</span>Fortalezas</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 swot-points">
+                        <li>Conocimiento del mercado local.</li>
+                        <li>Portafolio de productos especializado.</li>
+                        <li>Red de contactos B2B existente.</li>
+                    </ul>
+                    <button class="generate-recommendation-btn mt-4" data-swot-type="Fortalezas">✨ Generar Recomendación Estratégica</button>
+                    <div class="recommendation-container mt-4"></div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-lg p-6 border-l-8 border-[#118AB2]">
+                    <h3 class="text-2xl font-bold flex items-center mb-3"><span class="text-3xl mr-3">🚀</span>Oportunidades</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 swot-points">
+                        <li>Digitalización del canal B2B.</li>
+                        <li>Creación de una Red de Talleres Certificados.</li>
+                        <li>Marketing de Contenidos para el consumidor.</li>
+                    </ul>
+                    <button class="generate-recommendation-btn mt-4" data-swot-type="Oportunidades">✨ Generar Recomendación Estratégica</button>
+                    <div class="recommendation-container mt-4"></div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-lg p-6 border-l-8 border-[#FFD166]">
+                    <h3 class="text-2xl font-bold flex items-center mb-3"><span class="text-3xl mr-3">👎</span>Debilidades</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 swot-points">
+                        <li>Poca visibilidad de marca ante el B2C.</li>
+                        <li>Posible baja digitalización interna.</li>
+                        <li>Dependencia de cadenas de importación.</li>
+                    </ul>
+                     <button class="generate-recommendation-btn mt-4" data-swot-type="Debilidades">✨ Generar Recomendación Estratégica</button>
+                    <div class="recommendation-container mt-4"></div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-lg p-6 border-l-8 border-[#FF6B6B]">
+                    <h3 class="text-2xl font-bold flex items-center mb-3"><span class="text-3xl mr-3">⚠️</span>Amenazas</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 swot-points">
+                        <li>Competencia agresiva del canal informal.</li>
+                        <li>Volatilidad económica del país.</li>
+                        <li>Desintermediación por e-commerce.</li>
+                    </ul>
+                     <button class="generate-recommendation-btn mt-4" data-swot-type="Amenazas">✨ Generar Recomendación Estratégica</button>
+                    <div class="recommendation-container mt-4"></div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="opportunities" class="mb-12">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold section-title mb-3">5. Oportunidades Estratégicas Clave</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-600">Basado en el análisis, estas son las cuatro avenidas de crecimiento más prometedoras para Andina de Repuestos.</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                <ol class="space-y-6">
+                    <li class="flex items-start">
+                        <div class="flex-shrink-0 bg-[#118AB2] text-white rounded-full h-10 w-10 flex items-center justify-center font-bold text-xl mr-4">1</div>
+                        <div>
+                            <h4 class="font-bold text-xl text-gray-800">Digitalización del Canal B2B</h4>
+                            <p class="text-gray-600">Desarrollar una plataforma de pedidos online (web/app) para socios. Es la oportunidad más clara para diferenciarse y construir lealtad a través de la eficiencia.</p>
+                        </div>
+                    </li>
+                     <li class="flex items-start">
+                        <div class="flex-shrink-0 bg-[#118AB2] text-white rounded-full h-10 w-10 flex items-center justify-center font-bold text-xl mr-4">2</div>
+                        <div>
+                            <h4 class="font-bold text-xl text-gray-800">Crear una Red de Talleres Certificados</h4>
+                            <p class="text-gray-600">Implementar un programa que dé un sello de garantía a los mejores talleres. Andina los promocionaría al consumidor final, generando un círculo virtuoso de confianza y ventas.</p>
+                        </div>
+                    </li>
+                     <li class="flex items-start">
+                        <div class="flex-shrink-0 bg-[#118AB2] text-white rounded-full h-10 w-10 flex items-center justify-center font-bold text-xl mr-4">3</div>
+                        <div>
+                            <h4 class="font-bold text-xl text-gray-800">Lanzar una Estrategia de Contenidos</h4>
+                            <p class="text-gray-600">Crear contenido educativo (videos, blogs) que responda a los miedos del consumidor final (ej: "cómo evitar estafas"). Esto posiciona a Andina como una marca experta y confiable.</p>
+                        </div>
+                    </li>
+                     <li class="flex items-start">
+                        <div class="flex-shrink-0 bg-[#118AB2] text-white rounded-full h-10 w-10 flex items-center justify-center font-bold text-xl mr-4">4</div>
+                        <div>
+                            <h4 class="font-bold text-xl text-gray-800">Preparación para el Futuro</h4>
+                            <p class="text-gray-600">Anticipar la transición a vehículos híbridos y eléctricos, explorando líneas de repuestos especializados y ofreciendo capacitación a la red de talleres.</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <footer class="text-center mt-16 pt-8 border-t border-gray-300">
+            <p class="text-gray-500">Este informe se basa en los hallazgos del "Deep Research" del mercado peruano de autopartes, sintetizado para la toma de decisiones estratégicas.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const palette = { red: '#FF6B6B', yellow: '#FFD166', green: '#06D6A0', blue: '#118AB2', darkBlue: '#073B4C' };
+
+            const wrapLabel = (label) => {
+                if (typeof label !== 'string' || label.length <= 16) { return label; }
+                const words = label.split(' ');
+                let lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + ' ' + word).trim().length > 16 && currentLine.length > 0) {
+                        lines.push(currentLine);
+                        currentLine = word;
+                    } else {
+                        currentLine = (currentLine + ' ' + word).trim();
+                    }
+                });
+                if (currentLine) { lines.push(currentLine); }
+                return lines;
+            };
+
+            const chartTooltipConfig = {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                return Array.isArray(label) ? label.join(' ') : label;
+                            }
+                        }
+                    },
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: palette.darkBlue, font: { weight: '500' } }
+                    }
+                }
+            };
+            
+            new Chart(document.getElementById('brandShareChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Toyota', 'Hyundai', 'Kia', 'Chinas (Creciente)', wrapLabel('Otras Marcas')],
+                    datasets: [{
+                        data: [21, 9, 9, 10, 51],
+                        backgroundColor: [palette.red, palette.yellow, palette.blue, palette.green, 'rgba(7, 59, 76, 0.2)'],
+                        borderColor: '#f8fafc',
+                        borderWidth: 4,
+                    }]
+                },
+                options: { ...chartTooltipConfig, responsive: true, maintainAspectRatio: false, cutout: '65%' }
+            });
+            
+            new Chart(document.getElementById('competitiveBubbleChart'), {
+                type: 'bubble',
+                data: {
+                    datasets: [
+                        { label: 'Distribuidores Tradicionales', data: [{x: 3, y: 7, r: 25}], backgroundColor: 'rgba(7, 59, 76, 0.7)' },
+                        { label: 'Canal Informal', data: [{x: 9, y: 2, r: 30}], backgroundColor: 'rgba(255, 107, 107, 0.7)' },
+                        { label: 'Marketplaces Digitales', data: [{x: 7, y: 8, r: 15}], backgroundColor: 'rgba(17, 138, 178, 0.7)' },
+                        { label: 'Retail no Especializado', data: [{x: 2, y: 6, r: 8}], backgroundColor: 'rgba(255, 209, 102, 0.7)'}
+                    ]
+                },
+                options: {
+                    ...chartTooltipConfig, responsive: true, maintainAspectRatio: false,
+                    scales: {
+                        x: { min: 0, max: 10, title: { display: true, text: 'Nivel de Amenaza Percibida' } },
+                        y: { min: 0, max: 10, title: { display: true, text: 'Agilidad Digital' } }
+                    },
+                    plugins: {
+                        ...chartTooltipConfig.plugins,
+                        tooltip: {
+                             callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) { label += ': '; }
+                                    label += `(Amenaza: ${context.parsed.x}, Agilidad: ${context.parsed.y}, Cuota: ${context.raw.r}%)`;
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const recommendationButtons = document.querySelectorAll('.generate-recommendation-btn');
+            recommendationButtons.forEach(button => {
+                button.classList.add('bg-blue-100', 'text-blue-800', 'font-semibold', 'py-2', 'px-4', 'rounded-lg', 'hover:bg-blue-200', 'transition-colors', 'text-sm');
+                button.addEventListener('click', async (event) => {
+                    const swotType = event.target.dataset.swotType;
+                    const swotCard = event.target.closest('div');
+                    const pointsList = swotCard.querySelector('.swot-points');
+                    const swotPoints = Array.from(pointsList.querySelectorAll('li')).map(li => li.textContent).join(', ');
+                    const container = swotCard.querySelector('.recommendation-container');
+                    
+                    container.innerHTML = '<div class="flex justify-center"><div class="loader"></div></div>';
+
+                    let promptType = '';
+                    switch(swotType) {
+                        case 'Fortalezas': promptType = 'Como consultor de negocios, ¿cómo podemos apalancar estas fortalezas para ganar cuota de mercado?'; break;
+                        case 'Oportunidades': promptType = 'Como estratega, ¿cuáles son los 3 primeros pasos para capitalizar estas oportunidades?'; break;
+                        case 'Debilidades': promptType = 'Como experto en operaciones, sugiere 3 iniciativas para mitigar estas debilidades internas.'; break;
+                        case 'Amenazas': promptType = 'Como analista de riesgos, ¿qué 3 planes de contingencia debemos preparar para estas amenazas externas?'; break;
+                    }
+
+                    const prompt = `Para un distribuidor de autopartes en Perú llamado Andina de Repuestos, cuyo foco es B2B2C, analiza los siguientes puntos de su FODA: '${swotPoints}'. Basado en estos puntos, y considerando el rol de '${promptType}', genera 3 recomendaciones estratégicas, concisas y accionables.`;
+
+                    try {
+                        const apiKey = "";
+                        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                        const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                        const payload = { contents: chatHistory };
+
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (!response.ok) throw new Error(`API Error: ${response.statusText}`);
+                        
+                        const result = await response.json();
+                        
+                        if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) {
+                            const text = result.candidates[0].content.parts[0].text;
+                            container.innerHTML = `<div class="p-4 bg-gray-50 rounded-lg text-sm text-gray-700 whitespace-pre-wrap">${text}</div>`;
+                        } else {
+                            throw new Error("Respuesta inesperada de la API.");
+                        }
+
+                    } catch (error) {
+                        console.error("Error llamando a Gemini API:", error);
+                        container.innerHTML = '<p class="text-red-500 text-sm">Error al generar la recomendación. Por favor, intente de nuevo.</p>';
+                    }
+                });
+            });
+
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andina de Repuestos: Journey Map del Comerciante Estratégico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- 
+        PLAN DE INFOGRAFÍA Y ANÁLISIS TÉCNICO
+        Narrativa: Visualizar la experiencia del socio estratégico en un formato vertical, conciso e interactivo, para demostrar un entendimiento profundo de sus necesidades.
+        Estructura: 
+        1. Introducción y Persona.
+        2. El Journey Map vertical con 5 etapas clave y tooltips interactivos.
+        3. Conclusión estratégica.
+        
+        Paleta de Colores: "Brilliant Blues" (#004AAD, #007BFF, #58A6FF, #99C7FF, #E0EFFF).
+
+        Selección de Visualizaciones (Confirmación NO SVG / NO MERMAID):
+        - Journey Map Vertical: Diagrama de proceso vertical con HTML/CSS (divs, flexbox, pseudo-elementos). Goal: Organize. Method: HTML/CSS. NO SVG.
+        - Iconografía: Caracteres Unicode (emojis).
+        - Tooltips Interactivos: Implementados con CSS (group-hover) para explicar KPIs y términos técnicos. Goal: Inform. Method: HTML/CSS. NO SVG.
+
+        Confirmación explícita: NI Mermaid JS NI SVG fueron utilizados.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .tooltip {
+            @apply invisible absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs p-3 text-sm text-white bg-gray-800 rounded-md shadow-lg transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:visible z-50;
+        }
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #1f2937 transparent transparent transparent;
+        }
+        @media (max-width: 768px) {
+            .tooltip {
+                @apply fixed bottom-4 left-4 right-4 w-auto max-w-none transform-none;
+            }
+            .tooltip::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#E0EFFF]">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8">
+
+        <header class="relative text-center mb-12 py-4">
+             <a href="index.html" class="absolute top-4 right-4 bg-white hover:bg-gray-100 text-[#004AAD] font-bold py-2 px-4 rounded-lg shadow-md transition-all duration-300 hover:scale-105 flex items-center gap-2">
+                🏠 <span class="hidden sm:inline">Regresar a Propuesta</span>
+            </a>
+            <h1 class="text-4xl md:text-5xl font-black text-[#004AAD] mb-3">Customer Journey Map</h1>
+            <p class="text-xl md:text-2xl font-semibold text-[#007BFF]">La Experiencia del Comerciante Estratégico</p>
+        </header>
+
+        <main>
+
+            <section id="persona" class="mb-12">
+                <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
+                    <div class="text-6xl text-center">👤</div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-[#004AAD]">Persona: Carlos, El Dueño del Negocio</h2>
+                        <p class="text-lg text-gray-700 mt-1">
+                            Dueño de un taller/tienda de barrio. Experto en mecánica, presionado por la competencia. Su meta es **hacer crecer su negocio**. Valora la confianza y las relaciones a largo plazo.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="journey-map-vertical" class="relative max-w-3xl mx-auto">
+                <!-- Línea de tiempo vertical -->
+                <div class="absolute left-4 md:left-1/2 top-0 h-full w-1 bg-[#99C7FF] -translate-x-1/2"></div>
+                
+                <div class="space-y-12">
+                    
+                    <!-- Etapa 1: Descubrimiento -->
+                    <div class="pl-12 md:pl-0 flex md:justify-end">
+                        <div class="md:w-1/2 md:pl-8">
+                             <div class="bg-white rounded-2xl shadow-lg p-6 border-t-4 border-red-300">
+                                <p class="text-sm font-semibold text-red-500">Estado Emocional: Frustración</p>
+                                <h3 class="text-xl font-bold text-red-600 mb-3">1. DESCUBRIMIENTO 🤔</h3>
+                                <p class="text-gray-600 text-sm">Busca en Google un proveedor confiable al sentirse frustrado por su situación actual (márgenes bajos, stock inconstante).</p>
+                                <p class="mt-3 text-sm font-semibold text-[#004AAD]">Oportunidad ✨:</p>
+                                <p class="text-gray-600 text-sm">Atraerlo con contenido de valor sobre rentabilidad y gestión, no solo sobre productos, a través de <span class="font-bold underline decoration-dotted cursor-pointer group relative">Anuncios B2B<span class="tooltip">Campañas en redes dirigidas específicamente a dueños de negocios del sector automotriz.</span></span>.</p>
+                             </div>
+                        </div>
+                    </div>
+
+                     <!-- Etapa 2: Consideración -->
+                    <div class="pl-12 md:pl-0 flex">
+                         <div class="md:w-1/2 md:pr-8 md:text-right">
+                             <div class="bg-white rounded-2xl shadow-lg p-6 border-t-4 border-yellow-300">
+                                <p class="text-sm font-semibold text-yellow-500">Estado Emocional: Escepticismo</p>
+                                <h3 class="text-xl font-bold text-yellow-600 mb-3">2. CONSIDERACIÓN 🧐</h3>
+                                <p class="text-gray-600 text-sm">Visita nuestra web, revisa testimonios y se pregunta: "¿Realmente me ayudarán a vender más?". Desconfía por malas experiencias pasadas.</p>
+                                <p class="mt-3 text-sm font-semibold text-[#004AAD]">Oportunidad ✨:</p>
+                                <p class="text-gray-600 text-sm">Comunicar el <span class="font-bold underline decoration-dotted cursor-pointer group relative">modelo B2B2C<span class="tooltip">Estrategia donde ayudamos a nuestro socio (B2B) a vender más, generando demanda desde el consumidor final (B2C).</span></span> y facilitar el contacto humano con un <span class="font-bold underline decoration-dotted cursor-pointer group relative">CTA a WhatsApp<span class="tooltip">"Call to Action" o Botón de Llamada a la Acción que inicia una conversación directa por WhatsApp.</span></span>.</p>
+                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Etapa 3: Decisión -->
+                    <div class="pl-12 md:pl-0 flex md:justify-end">
+                        <div class="md:w-1/2 md:pl-8">
+                             <div class="bg-white rounded-2xl shadow-lg p-6 border-t-4 border-blue-300">
+                                <p class="text-sm font-semibold text-blue-500">Estado Emocional: Esperanza</p>
+                                <h3 class="text-xl font-bold text-blue-600 mb-3">3. DECISIÓN ✍️</h3>
+                                <p class="text-gray-600 text-sm">Inicia una conversación por WhatsApp. Se siente valorado por la atención personalizada y la rapidez de respuesta.</p>
+                                <p class="mt-3 text-sm font-semibold text-[#004AAD]">Oportunidad ✨:</p>
+                                <p class="text-gray-600 text-sm">Un asesor capacitado le demuestra con proyecciones de <span class="font-bold underline decoration-dotted cursor-pointer group relative">ROAS<span class="tooltip">Return On Ad Spend: Mide el ingreso generado por cada sol invertido en publicidad.</span></span> cómo la colaboración es una inversión, no un gasto.</p>
+                             </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Etapa 4: Activación -->
+                    <div class="pl-12 md:pl-0 flex">
+                         <div class="md:w-1/2 md:pr-8 md:text-right">
+                             <div class="bg-white rounded-2xl shadow-lg p-6 border-t-4 border-teal-300">
+                                <p class="text-sm font-semibold text-teal-500">Estado Emocional: Compromiso</p>
+                                <h3 class="text-xl font-bold text-teal-600 mb-3">4. ACTIVACIÓN 🚀</h3>
+                                <p class="text-gray-600 text-sm">Realiza su primer pedido. Recibe su kit de bienvenida y la primera capacitación. Se siente ansioso por ver resultados.</p>
+                                <p class="mt-3 text-sm font-semibold text-[#004AAD]">Oportunidad ✨:</p>
+                                <p class="text-gray-600 text-sm">Realizar un <span class="font-bold underline decoration-dotted cursor-pointer group relative">onboarding proactivo<span class="tooltip">Proceso de bienvenida y acompañamiento intensivo para asegurar que el nuevo socio se integre exitosamente.</span></span>, entregando un pack de contenido listo para usar y comunicando el inicio de las campañas en su zona.</p>
+                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Etapa 5: Lealtad -->
+                    <div class="pl-12 md:pl-0 flex md:justify-end">
+                        <div class="md:w-1/2 md:pl-8">
+                             <div class="bg-white rounded-2xl shadow-lg p-6 border-t-4 border-green-300">
+                                <p class="text-sm font-semibold text-green-500">Estado Emocional: Crecimiento</p>
+                                <h3 class="text-xl font-bold text-green-600 mb-3">5. LEALTAD 🤝</h3>
+                                <p class="text-gray-600 text-sm">Ve un aumento real en sus ventas gracias a los clientes referidos. Se convierte en un embajador de la marca.</p>
+                                <p class="mt-3 text-sm font-semibold text-[#004AAD]">Oportunidad ✨:</p>
+                                <p class="text-gray-600 text-sm">Implementar un programa de "Socios Certificados" y ofrecerle nuevas líneas de producto, maximizando su <span class="font-bold underline decoration-dotted cursor-pointer group relative">LTV<span class="tooltip">Lifetime Value: El valor total que un cliente genera para el negocio durante toda su relación comercial.</span></span>.</p>
+                             </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            
+            <section id="conclusion" class="mt-16">
+                 <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8 text-center">
+                    <h2 class="text-3xl font-bold text-[#004AAD] mb-4">Conclusión Estratégica del Journey</h2>
+                    <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                       Este mapa demuestra que nuestro enfoque va más allá de la transacción. Entendemos que el éxito de Andina depende de **convertir los "dolores" de sus socios en oportunidades de crecimiento mutuo**. Cada punto de contacto está diseñado para construir una relación de colaboración, pasando de ser un simple proveedor a un **socio estratégico indispensable**.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+</body>
+</html>
