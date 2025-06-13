@@ -1,78 +1,59 @@
-# propuestacomercial
-website
-Plan Técnico para el Despliegue Funcional de la Propuesta Interactiva
-Objetivo: Detallar los componentes técnicos necesarios para convertir los tres artefactos HTML (Propuesta Comercial, Visión de Mercado, Journey Map) en una aplicación web completamente funcional, con capacidades de IA y envío de notificaciones.
+Instrucciones para Desplegar el Formulario de Aceptación de Oferta
+Este proyecto contiene un frontend (index.html) y un backend (server.js) para capturar y enviar los datos de un formulario por correo electrónico.
 
-1. Estructura Actual: Un Ecosistema de Prototipos HTML
-Actualmente, contamos con tres archivos HTML autocontenidos que simulan una aplicación multi-página:
+Requisitos Previos
+Node.js y npm: Asegúrate de tener Node.js instalado en tu sistema. Puedes descargarlo desde nodejs.org. npm se instala automáticamente con Node.js.
 
-index.html (Propuesta Comercial): El punto de entrada principal. Contiene la navegación hacia los otros dos artefactos y el formulario de aceptación de oferta.
+Paso 1: Configurar el Backend (server.js)
+Crear un directorio de proyecto:
 
-vision.html (Visión de Mercado): La infografía interactiva que profundiza en el análisis del mercado.
+mkdir andina-backend
+cd andina-backend
 
-journey.html (Journey Map): El mapa detallado de la experiencia del socio estratégico.
+Inicializar el proyecto de Node.js:
 
-La navegación entre ellos funciona mediante enlaces HTML estándar (<a href="vision.html">). Esta estructura es perfecta para una demostración, pero para un despliegue real necesitamos añadir una capa de servicios (backend) para procesar las interacciones dinámicas.
+npm init -y
 
-2. Funcionalidad del "Asistente de Marketing" (Llamada a Gemini API)
-El estado actual permite una demostración, pero no es seguro ni escalable para producción.
+Instalar las dependencias necesarias:
 
-¿Cómo funciona ahora? El código JavaScript en el navegador intenta llamar directamente a la API de Gemini. La apiKey está intencionalmente vacía para la demostración.
+Express: Para crear el servidor.
 
-¿Qué falta para desplegarlo?
+Nodemailer: Para enviar correos.
 
-Backend como Intermediario (Proxy): Por seguridad, la clave de la API de Gemini NUNCA debe estar en el código del navegador. Se necesita un pequeño backend que actúe como intermediario.
+CORS: Para permitir la comunicación entre el frontend y el backend.
 
-Endpoint Requerido: Crear un endpoint en nuestro backend, por ejemplo: POST /api/generar-post-marketing.
+npm install express nodemailer cors
 
-Flujo de Funcionalidad:
+Guardar el código: Crea un archivo llamado server.js y pega el contenido del backend proporcionado.
 
-El navegador envía el "tema" (ej. "promoción de frenos") a nuestro endpoint /api/generar-post-marketing.
+Configurar las credenciales de correo:
 
-Nuestro servidor backend recibe la solicitud.
+Abre el archivo server.js.
 
-El servidor (y solo el servidor) utiliza la clave secreta de la API de Gemini para llamar al modelo de IA con el prompt adecuado.
+Busca la sección nodemailer.createTransport.
 
-El servidor recibe la respuesta de Gemini.
+Reemplaza 'TU_CORREO@gmail.com' con la dirección de correo electrónico que usarás para enviar las notificaciones.
 
-El servidor le devuelve el texto generado al navegador para que se lo muestre al usuario.
+Reemplaza 'TU_CONTRASEÑA_DE_APLICACION' con una contraseña de aplicación generada desde tu cuenta de Google. (No uses tu contraseña principal. Busca "Google App Passwords" para ver cómo generarla).
 
-Beneficios Adicionales: Este enfoque nos permite controlar costos (limitando el número de llamadas a la API), gestionar errores de forma centralizada y actualizar el modelo de IA sin cambiar la página web.
+Paso 2: Ejecutar el Servidor Backend
+En la terminal, dentro del directorio andina-backend, ejecuta el siguiente comando:
 
-3. Funcionalidad del Formulario "Aceptar Oferta"
-Actualmente, el formulario es solo una interfaz visual. No envía ninguna información.
+node server.js
 
-¿Qué falta para desplegarlo?
+Si todo está bien, verás el mensaje: Servidor escuchando en http://localhost:3000. ¡No cierres esta terminal!
 
-Un Servicio de Envío de Correo: El backend necesita la capacidad de enviar correos electrónicos. Esto se puede lograr integrando un servicio de terceros especializado como SendGrid, Mailgun o AWS SES. Estos servicios son robustos y aseguran una alta tasa de entrega.
+Paso 3: Probar el Frontend (index.html)
+Guardar el archivo: Guarda el contenido del frontend en un archivo llamado index.html.
 
-Endpoint Requerido: Crear un endpoint en el backend, por ejemplo: POST /api/aceptar-oferta.
+Abrir en el navegador: Haz doble clic en el archivo index.html para abrirlo en tu navegador web.
 
-Flujo de Funcionalidad:
+Realizar la prueba:
 
-El usuario llena el formulario en el pop-up y hace clic en "Enviar Solicitud".
+Haz clic en el botón "Aceptar Oferta".
 
-El navegador empaqueta los datos (nombre, apellido, correo, plan seleccionado) y los envía a nuestro endpoint /api/aceptar-oferta.
+Llena el formulario con datos de prueba.
 
-Nuestro servidor backend recibe los datos.
+Haz clic en "Enviar Solicitud".
 
-El servidor se conecta al servicio de correo (ej. SendGrid) y le instruye que envíe un email a una dirección designada (ej. ventas@andina.com) con toda la información del formulario.
-
-El servidor responde al navegador con un mensaje de éxito ("¡Gracias! Hemos recibido tu solicitud.") o de error.
-
-4. Resumen para el Despliegue Completo
-Para que todo el ecosistema sea funcional, seguro y escalable, se requiere la creación de un backend simple que incluya:
-
-1. Un Servidor: Puede ser desarrollado con tecnologías como Node.js (Express), Python (Flask), etc.
-
-2. Dos Endpoints de API:
-
-POST /api/generar-post-marketing (Para el chatbot/asistente de IA).
-
-POST /api/aceptar-oferta (Para el formulario de contacto).
-
-3. Gestión de Claves Seguras: Un sistema para almacenar de forma segura las claves de la API de Gemini y del servicio de envío de correos.
-
-4. Entorno de Hosting: Una plataforma que pueda alojar tanto los archivos estáticos (HTML) como el servidor backend (ej. Vercel, Netlify, Heroku, AWS).
-
-Una vez implementado este backend, los tres artefactos HTML se conectarán a él para sus funcionalidades dinámicas, convirtiendo el prototipo en una herramienta de negocio completa y lista para producción.
+Deberías ver un mensaje de éxito. Revisa la bandeja de entrada del correo que configuraste como destinatario (ventas@andina.com) para confirmar que recibiste la notificación.
